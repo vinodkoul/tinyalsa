@@ -205,6 +205,9 @@ int pcm_stop(struct pcm *pcm);
 int pcm_wait(struct pcm *pcm, int timeout);
 
 
+/* Get the pcm delay */
+int pcm_get_delay(struct pcm *pcm, long *delay);
+
 /*
  * MIXER API
  */

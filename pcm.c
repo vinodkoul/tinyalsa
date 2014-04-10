@@ -1046,3 +1046,8 @@ int pcm_mmap_read(struct pcm *pcm, void *data, unsigned int count)
 
     return pcm_mmap_transfer(pcm, data, count);
 }
+
+int pcm_get_delay(struct pcm *pcm, long *delay)
+{
+    return ioctl(pcm->fd, SNDRV_PCM_IOCTL_DELAY, delay) == 0 ? 0 : -ENOSYS;
+}
