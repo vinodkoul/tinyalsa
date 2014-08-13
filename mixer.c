@@ -254,6 +254,14 @@ unsigned int mixer_ctl_get_num_values(struct mixer_ctl *ctl)
     if (!ctl)
         return 0;
 
+    if (ctl->info->access & SNDRV_CTL_ELEM_ACCESS_TLV_READWRITE) {
+	    struct snd_ctl_tlv tlv;
+
+	    tlv->numid = ctl->info->id.numid;
+	    ioctl(ctl->mixer->fd, SNDRV_CTL_IOCTL_TLV_READ, tlv);
+
+	    return tlv.length;
+    }
     return ctl->info->count;
 }
 
